@@ -2,6 +2,10 @@ pipeline {
 
     agent any
 
+    environment {
+        PR_BUILD = (env.CHANGE_ID != null)
+    }
+    
     options {
         buildDiscarder logRotator( 
             daysToKeepStr: '16', 
