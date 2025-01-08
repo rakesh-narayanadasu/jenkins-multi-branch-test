@@ -1,9 +1,7 @@
 pipeline {
-
     agent any
-
     environment {
-        PR_BUILD = (env.CHANGE_ID != null)
+        PR_BUILD = (env.CHANGE_ID != null)  // Example: setting a custom environment variable
     }
 
     stages {
