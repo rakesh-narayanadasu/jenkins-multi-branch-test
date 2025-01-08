@@ -14,6 +14,20 @@ pipeline {
     }
 
     stages {
+
+        stage('Build') {
+            steps {
+                script {
+                    if (PR_BUILD) {
+                        echo "Building Pull Request #${env.CHANGE_ID}"
+                        // Add custom build logic for PRs
+                    } else {
+                        echo "Building Branch: ${env.BRANCH_NAME}"
+                        // Add logic for regular branch builds
+                    }
+                }
+            }
+        }
         
         stage('Cleanup Workspace') {
             steps {
