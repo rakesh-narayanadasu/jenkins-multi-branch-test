@@ -9,9 +9,9 @@ pipeline {
         }
         stage('Unit Testing') {
             steps {
-                sh """
+                sh '''
                 echo "Running Unit Tests"
-                """
+                '''
             }
         }
 
