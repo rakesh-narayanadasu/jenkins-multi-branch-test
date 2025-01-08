@@ -1,25 +1,7 @@
 pipeline {
     agent any
-    /*environment {
-        PR_BUILD = (env.CHANGE_ID != null)  // Example: setting a custom environment variable
-    }
-*/
-    stages {
-/*
-        stage('Build') {
-            steps {
-                script {
-                    if (PR_BUILD) {
-                        echo "Building Pull Request #${env.CHANGE_ID}"
-                        // Add custom build logic for PRs
-                    } else {
-                        echo "Building Branch: ${env.BRANCH_NAME}"
-                        // Add logic for regular branch builds
-                    }
-                }
-            }
-        }
-*/        
+    
+    stages {        
         stage('Cleanup Workspace') {
             steps {
                 sh """
