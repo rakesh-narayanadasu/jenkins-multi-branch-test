@@ -3,7 +3,7 @@ pipeline {
     /*environment {
         PR_BUILD = (env.CHANGE_ID != null)  // Example: setting a custom environment variable
     }
-*/
+
     stages {
 
         stage('Build') {
@@ -19,7 +19,7 @@ pipeline {
                 }
             }
         }
-        
+*/        
         stage('Cleanup Workspace') {
             steps {
                 cleanWs()
