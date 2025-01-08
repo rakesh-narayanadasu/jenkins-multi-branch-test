@@ -1,26 +1,57 @@
 pipeline {
     agent any
 
+    // Environment variables for Nexus
+    environment {
+        NEXUS_URL = 'http://nexus-repo-url'
+        NEXUS_REPO = 'maven-releases'
+        NEXUS_CREDENTIALS_ID = 'nexus-credentials-id'
+    }
+
+    triggers {
+        // Trigger pipeline when a pull request is raised or updated
+        genericTrigger(
+            causeString: 'Triggered by Pull Request',
+            genericVariables: [
+                [key: 'targetBranch', value: '$.resource.targetBranch']
+            ],
+            token: 'jenkins-webhook-token',
+            printContributedVariables: true,
+            printPostContent: true,
+            regexpFilterText: '$targetBranch',
+            regexpFilterExpression: 'refs/heads/(develop|uat|main)'
+        )
+    }
+
     stages {
-        stage('Hello') {
+        stage('Linting and Formatting Checks') {
             steps {
-                echo 'Hello World'
+                echo 'Running linting and formatting checks...'
             }
         }
-        stage('Build') {
+
+        stage('Build WAR File') {
             steps {
-                echo 'Building the Application'
+                echo 'Building WAR file...'
             }
         }
-        stage('Unit Testing') {
+
+        stage('Upload Artifact to Nexus') {
             steps {
-                echo 'Running Unit Test cases'
+                echo 'Uploading WAR file to Nexus repository...'
             }
         }
-        stage('Sonar Scan') {
-            steps {
-                echo 'Running Sonar Scans'
-            }
+    }
+
+    post {
+        always {
+            echo 'Pipeline finished.'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+        success {
+            echo 'Pipeline completed successfully.'
         }
     }
 }
